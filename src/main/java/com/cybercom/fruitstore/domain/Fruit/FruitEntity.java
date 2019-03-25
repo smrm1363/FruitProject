@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Random;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -20,6 +17,7 @@ public class FruitEntity {
     @Id
     @GeneratedValue
     private Integer id;
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH,CascadeType.DETACH})
     private FruitTypeEntity type;
     @NotNull
     private String name;
