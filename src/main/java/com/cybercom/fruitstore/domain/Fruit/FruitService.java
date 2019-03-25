@@ -5,6 +5,7 @@ import com.cybercom.fruitstore.domain.FruitType.FruitTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -31,5 +32,9 @@ public class FruitService {
     public FruitEntity find(Integer id) throws ApplicationException {
         return fruitRepository.findById(id)
                 .orElseThrow(()->new ApplicationException(env.getProperty("domain.Fruit.FruitNotFound")));
+    }
+    public List<FruitEntity> findAll()
+    {
+        return fruitRepository.findAll();
     }
 }

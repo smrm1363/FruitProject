@@ -29,4 +29,5 @@ public class FruitTypeService {
         return fruitTypeRepository.findById(id)
                 .orElseThrow(()->new ApplicationException(env.getProperty("domain.FruitType.FruitTypeNotFound")));
     }
+
 }
