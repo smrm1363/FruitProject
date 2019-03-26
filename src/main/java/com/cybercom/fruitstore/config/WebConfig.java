@@ -1,4 +1,4 @@
-package com.cybercom.fruitstore;
+package com.cybercom.fruitstore.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

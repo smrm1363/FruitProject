@@ -17,7 +17,7 @@ public class FruitEntity {
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH,CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private FruitTypeEntity type;
     @NotNull
     private String name;
