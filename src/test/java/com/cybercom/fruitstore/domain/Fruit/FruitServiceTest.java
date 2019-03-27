@@ -19,7 +19,7 @@ public class FruitServiceTest {
         client.connect();
         MqttMessage message = new MqttMessage();
         message.setPayload("Hello world from Java".getBytes());
-        client.publish("iot_data", message);
+        client.publish("new/fruit", message);
         IMqttToken iMqttToken =client.subscribeWithResponse("Mohammadreza");
 
         client.disconnect();
