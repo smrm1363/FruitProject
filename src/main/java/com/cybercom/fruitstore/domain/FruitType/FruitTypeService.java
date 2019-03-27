@@ -51,4 +51,7 @@ public class FruitTypeService {
         return fruitTypeEntities.stream().findFirst();
     }
 
+    public void delete(Integer id) {
+        fruitTypeRepository.deleteById(id);
+    }
 }

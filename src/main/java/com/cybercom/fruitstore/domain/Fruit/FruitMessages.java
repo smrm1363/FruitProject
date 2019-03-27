@@ -2,6 +2,7 @@ package com.cybercom.fruitstore;
 
 
 
+import com.cybercom.fruitstore.domain.Fruit.FruitRepository;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -14,7 +15,7 @@ public class FruitMessages implements MqttCallback {
 
 
     @Autowired
-    Database db;
+    FruitRepository db;
 
 
     MqttClient mqtt;
@@ -24,7 +25,8 @@ public class FruitMessages implements MqttCallback {
        
         mqtt.setCallback(this);
         mqtt.connect();
-        mqtt.subscribe("new/fruit");
+//        mqtt.subscribe("new/fruit");
+        mqtt.subscribe("foo/bar");
 
     }
 
