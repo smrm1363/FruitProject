@@ -3,6 +3,8 @@ package com.cybercom.fruitstore.domain.FruitType;
 import com.cybercom.fruitstore.common.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,7 +53,20 @@ public class FruitTypeService {
         return fruitTypeEntities.stream().findFirst();
     }
 
-    public void delete(Integer id) {
-        fruitTypeRepository.deleteById(id);
+    public void delete(Integer id) throws ApplicationException {
+        try {
+            fruitTypeRepository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException exception)
+        {
+            exception.printStackTrace();
+            throw new ApplicationException(env.getProperty("domain.FruitType.FruitTypeInUsed"));
+        }
+        catch (EmptyResultDataAccessException exception)
+        {
+            exception.printStackTrace();
+            throw new ApplicationException(env.getProperty("domain.FruitType.FruitTypeNotFound"));
+        }
+
     }
 }

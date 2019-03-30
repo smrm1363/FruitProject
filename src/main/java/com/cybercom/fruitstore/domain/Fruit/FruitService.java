@@ -1,17 +1,20 @@
 package com.cybercom.fruitstore.domain.Fruit;
 
 import com.cybercom.fruitstore.common.ApplicationException;
+import com.cybercom.fruitstore.common.MessageObserver;
 import com.cybercom.fruitstore.domain.FruitType.FruitTypeEntity;
 import com.cybercom.fruitstore.domain.FruitType.FruitTypeService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Service
-public class FruitService {
+public class FruitService implements MessageObserver {
     private final FruitRepository fruitRepository;
     private final FruitTypeService fruitTypeService;
     private final Environment env;
@@ -62,8 +65,21 @@ public class FruitService {
     {
         return fruitRepository.findAll();
     }
-    public void delete(Integer id)
-    {
-        fruitRepository.deleteById(id);
+    public void delete(Integer id) throws ApplicationException {
+        try {
+            fruitRepository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException exception)
+        {
+            exception.printStackTrace();
+            throw new ApplicationException(env.getProperty("domain.Fruit.FruitNotFound"));
+        }
+    }
+
+    @Override
+    public void update(String message) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        FruitEntity fruitEntity = mapper.readValue(message, FruitEntity.class);
+        saveOrUpdate(fruitEntity);
     }
 }
