@@ -6,13 +6,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-import java.util.Random;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.Objects;
 
+/**
+ * This is an entity for Fruit type
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -23,7 +24,7 @@ public class FruitEntity {
     @GeneratedValue
     @ApiModelProperty(notes = "The automatic generated FruitEntity ID")
     private Integer id;
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @ApiModelProperty(notes = "The FruitTypeEntity of the FruitEntity")
     private FruitTypeEntity type;
     @NotNull

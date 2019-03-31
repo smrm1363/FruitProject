@@ -2,7 +2,10 @@ package com.cybercom.fruitstore.common;
 
 import java.io.IOException;
 
+/**
+ * This is an interface for Observer Design pattern
+ */
 @FunctionalInterface
 public interface MessageObserver {
-    void update(String message) throws IOException;
+    void updateObserver(String message) throws IOException, ApplicationException;
 }
