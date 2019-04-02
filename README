@@ -1,15 +1,44 @@
-﻿Hello!
+﻿This is a sample project for storing Data of Fruits. Indeed I refactored everything in this project depending on my time limits and being clear its business logic.
+First of all, I introduce used technologies in this project:
 
-Our fruitstore is a mess! please help us.
+- Java 8
 
-In this code there is not much that is how it should be.
+- Spring Boot
 
-It´s ok to change everything.
+- Spring IOC
 
-Show your skills and try to make this project into something that you can be proud of.
+- Spring AOP
 
-The mqtt parts needs a broker, if you feel up for it we suggest you install one on your local machine.
+- Spring REST
 
+- Spring data (JPA repository)
 
+- Swagger
 
-Max amount of time spent is 3 days.
+- MQTT
+
+- H2
+
+- Junit
+
+- Mockito
+
+- Spring boot test
+
+ In this project, We have 3 packages, first 'common' which contains Classes are used in different domains. The second is config which contains some configuration of the project. The third is 'domain' which contains business logic, model, controllers and everything related to each domain.
+
+ In the legacy code, we had only Fruit entity, but I separated it into two different domain duo to making data model normal. The first package in the domain is 'fruit' and the second is 'fruitType'. I suppose if we are inserting a Fruit while it's FruitType is not available, the FruitType will insert as a Cascade manner with the Fruit.
+
+I Implemented an MQTT client in GeneralMessagesCallback class for receiving data from a Topic of a Message broker (I tested it with Mosquitto). For calling a business logic while arriving a message, I implemented an Observer design pattern. Indeed in this project only saving operation for a Fruit is called, but we could add any other one in the future with registering an observer on the GeneralMessagesCallback. It is able to subscribe to different Topic while each topic related to an observer. Notice that, for using this feature a message broker should be already started in tcp://localhost:1883. By default, I listen to 'new/fruit' Topic, but you can change them in the application.properties file.
+
+Moreover, I used Swagger for making document for REST APIs. For using it's UI please open http://localhost:8080/swagger-ui.html#/ in your browser.
+
+Furthermore, I used an H2 DB in the simplest way, I mean I did not use username and password, but you are able to use it via the application.properties file. Nevertheless, it's admin console on the browser is available.
+
+Another thing I used is Spring AOP, I tried to make logs on each Service beans, actually I wanted to show logging as a cross-functional action.
+Finally, I wrote some unit and integration tests. Maybe they are not very complete but I just wanted to show my skills in testing.
+
+ In conclusion, I just tried to show some of my knowledge in Java and it's technologies, I know I could do some other useful ways such as connecting Async to MQ or making the application more configurable, and so forth, but I have done it with limit requirement knowledge and time.
+
+Thank you for your consideration and time.
+Mohammadreza Mirali
